@@ -1,11 +1,11 @@
 const express = require("express");
-const cookieParser = require("cookie-parser");
 const router = express.Router();
+const cookieParser = require("cookie-parser");
+router.use(cookieParser());
 //const { isLoggined } = require("../ulti/login");
 
 const siteController = require("../controllers/SiteController");
 
-router.use(cookieParser());
 
 //[GET] /error/:slug
 router.use("/:slug", siteController.error);

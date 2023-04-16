@@ -1,21 +1,13 @@
-// Library
-
-
-// Models
-
-
-// Utils
 
 class SiteController {
     // [GET] - Index
     index(req, res, next){
-        console.log(1)
-        return res.redirect('/');
+        return res.render('home');
     };
 
     // [GET] - Error
     error(req, res, next){
-        return res.redirect('/');
+        return res.render('partials/notfound', {layout: null});
     }
 };
 

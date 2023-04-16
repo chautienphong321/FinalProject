@@ -23,8 +23,7 @@ const hbs = exphbs.create({
 
 const app = express();
 
-xPORT = process.env.PORT || 5000;
-
+xPORT = process.env.PORT || 8080;
 
 app.engine('hbs', hbs.engine);
 app.set("view engine", "hbs");
@@ -34,6 +33,7 @@ app.use(session({
   secret: 'foo',
   resave: false,
   saveUninitialized: true,
+  //store: new MongoStore({ mongooseConnection: mongoose.connection }),
   cookie: {maxAge: 180 * 60 * 1000}
 }));
 app.use(function(req, res, next){
@@ -50,8 +50,6 @@ app.use(flash());
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(methodOverride('_method'));
-
-const Router = express.Router();
 
 
 route(app);
