@@ -178,9 +178,9 @@
    * Menu isotope and filter
    */
   window.addEventListener('load', () => {
-    let menuContainer = select('.menu-container');
-    if (menuContainer) {
-      let menuIsotope = new Isotope(menuContainer, {
+    let locationContainer = select('.location-container');
+    if (locationContainer) {
+      let menuIsotope = new Isotope(locationContainer, {
         itemSelector: '.menu-item',
         layoutMode: 'fitRows'
       });
