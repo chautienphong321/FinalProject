@@ -27,7 +27,15 @@ $(document).ready(function() {
         }
         
         for(var i = 0; i < items.length; i++) {
-            if($(items[i]).hasClass(dataFilter)){
+            if(dataFilter == '*'){
+                $(items[i]).show();
+                $(items[i]).removeClass(function(index, className) {
+                    return className.split(' ').filter(c => c.includes('col-')).join(' ');
+                });
+                $(items[i]).addClass('col-lg-3 col-md-6 col-sm-12');
+                // break;
+            }
+            else if($(items[i]).hasClass(dataFilter)){
                 $(items[i]).show();
                 
                 switch(count){
