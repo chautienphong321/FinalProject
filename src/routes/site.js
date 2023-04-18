@@ -7,6 +7,9 @@ router.use(cookieParser());
 const siteController = require("../controllers/SiteController");
 
 
+// [GET} /login
+router.get("/login", siteController.login);
+
 //[GET] /error/:slug
 router.use("/:slug", siteController.error);
 
