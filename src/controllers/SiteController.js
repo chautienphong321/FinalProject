@@ -2,7 +2,7 @@
 class SiteController {
     // [GET] - Index
     index(req, res, next){
-        return res.render('home');
+        return res.render('home', {isHomePage: true});
     };
 
     // [GET] - Error

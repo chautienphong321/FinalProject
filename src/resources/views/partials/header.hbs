@@ -1,15 +1,19 @@
-  <section id="topbar" class="d-flex align-items-center fixed-top topbar-transparent topbar-onscroll">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-center justify-content-lg-start">
-      <i class="bi bi-phone d-flex align-items-center"><span>+84 123 456 789</span></i>
-      <i class="bi bi-clock ms-4 d-none d-lg-flex align-items-center"><span>Mon-Sun: 9:00 AM - 22:00 PM</span></i>
+  <section id="topbar" class="d-flex align-items-center fixed-top {{#if isHomepage}}topbar-transparent{{/if}} topbar-onscroll">
+    <div class="container d-flex">
+      <div class="container-xl d-flex align-items-center justify-content-start">
+        <i class="bi bi-phone align-items-center"><span>+84 123 456 789</span></i>
+        <i class="bi bi-clock ms-4 d-none d-lg-flex align-items-center"><span>Mon-Sun: 9:00 AM - 22:00 PM</span></i>
+      </div>
+      <div class="container-xl d-flex flex-end justify-content-end">
+        <a href="/login">Login</a>
     </div>
   </section>
 
-  <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+  <header id="header" class="fixed-top d-flex align-items-center {{#if isHomepage}}header-transparent{{/if}}">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
       <div class="logo me-auto">
-        <h1><a href="index.html">Pontoon</a></h1>
+        <h1><a href="/">Pontoon</a></h1>
       </div>
 
       <nav id="navbar" class="navbar order-last order-lg-0">
