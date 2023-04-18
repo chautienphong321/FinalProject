@@ -7,12 +7,12 @@ class SiteController {
 
     // [GET] - Error
     error(req, res, next){
-        return res.render('partials/notfound', {layout: null});
+        return res.render('partials/notfound', {layout: null, title: "404 Not Found"});
     }
     
     // [GET] - login
     login(req, res, next){
-        return res.render('login', {isLoginPage: true});
+        return res.render('login', {isLoginPage: true, title: "Login"});
     };
 };
 

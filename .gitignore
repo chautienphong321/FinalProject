@@ -3,3 +3,9 @@
 node_modules/
 
 secrets/
+
+public/assets/admin
+
+public/assets/js
+
+public/assets/vendor
