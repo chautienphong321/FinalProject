@@ -3,6 +3,36 @@
   .login-img {
     display: none; } }
 
+.image-container {
+  height: 500px;
+  position: relative; }
+
+.pattern-container {
+  position: absolute;
+  z-index: 1; }
+
+.pattern-position {
+  top: 25%;
+  left: 65%; }
+
+.main-customize {
+  display: flex;
+  justify-content: space-between; }
+
+.customize-options-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end; }
+
+@media screen and (max-width: 1000px) {
+  .main-customize {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center; }
+  .customize-options-content {
+    align-items: flex-start; } }
+
 body {
   font-family: "Poppins", sans-serif;
   color: #444444; }

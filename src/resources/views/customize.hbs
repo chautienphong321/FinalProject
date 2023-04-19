@@ -1,0 +1,240 @@
+<main id="main">
+
+  <!-- ======= Breadcrumbs Section ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>{{title}}</h2>
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li>{{title}}</li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Breadcrumbs Section -->
+
+  <section class="inner-page">
+    <div class="container">
+      <h1 class="text-center">{{title}}</h1>
+
+      <div class="main-customize">
+        <div class="image-container">
+          <img
+            src="/assets/img/customize/shirt-black.png"
+            alt="Customize Image"
+            class="img-fluid h-100 v-100"
+            id="customize-image"
+            onerror="handleImageExist()"
+          />
+          <div class="pattern-container pattern-position">
+            <i
+              class="fa-solid fa-bolt fa-2x"
+              id="customize-pattern"
+              style="color: white"
+            ></i>
+          </div>
+        </div>
+        <div class="customize-options-content">
+          {{! Kind section }}
+          <h4>Kinds</h4>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="btn-group btn-change-kind" role="group">
+                <button
+                  type="button"
+                  class="btn btn-dark"
+                  onclick="changeKind('shirt', $(this))"
+                >Shirt</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changeKind('hoodie', $(this))"
+                >Hoodie</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changeKind('polo', $(this))"
+                >Polo</button>
+              </div>
+            </div>
+          </div>
+          {{! End kind section }}
+          {{! Color section }}
+          <h4 class="mt-3">Colour</h4>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="btn-group btn-change-color" role="group">
+                <button
+                  type="button"
+                  class="btn btn-dark"
+                  onclick="changeColor('black', $(this))"
+                >BLACK</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changeColor('blue', $(this))"
+                >BLUE</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changeColor('brown', $(this))"
+                >BROWN</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changeColor('green', $(this))"
+                >GREEN</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changeColor('purple', $(this))"
+                >PURPLE</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changeColor('red', $(this))"
+                >RED</button>
+              </div>
+            </div>
+          </div>
+          {{! End color section }}
+          <hr class="w-100" />
+          {{! Pattern section }}
+          <h4 class="mt-3">Pattern</h4>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="btn-group btn-change-pattern" role="group">
+                <button
+                  type="button"
+                  class="btn btn-dark"
+                  onclick="changePattern('bolt', $(this))"
+                ><i class="fa-solid fa-bolt"></i></button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changePattern('cloud', $(this))"
+                ><i class="fa-solid fa-cloud"></i></button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changePattern('snowflake', $(this))"
+                ><i class="fa-solid fa-snowflake"></i></button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changePattern('star', $(this))"
+                ><i class="fa-solid fa-star"></i></button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changePattern('sun', $(this))"
+                ><i class="fa-solid fa-sun"></i></button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changePattern('tornado', $(this))"
+                ><i class="fa-solid fa-tornado"></i></button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changePattern('moon', $(this))"
+                ><i class="fa-solid fa-moon"></i></button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changePattern('volcano', $(this))"
+                ><i class="fa-solid fa-volcano"></i></button>
+              </div>
+            </div>
+          </div>
+          {{! End pattern section }}
+          {{! Pattern section }}
+          <h4 class="mt-3">Pattern Colour</h4>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="btn-group btn-change-pattern-color" role="group">
+                <button
+                  type="button"
+                  class="btn btn-dark"
+                  onclick="changePatternColor('white', $(this))"
+                >White</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changePatternColor('black', $(this))"
+                >BLACK</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changePatternColor('blue', $(this))"
+                >BLUE</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changePatternColor('brown', $(this))"
+                >BROWN</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changePatternColor('green', $(this))"
+                >GREEN</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changePatternColor('purple', $(this))"
+                >PURPLE</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changePatternColor('red', $(this))"
+                >RED</button>
+              </div>
+            </div>
+          </div>
+          {{! End pattern section }}
+          {{! Position section }}
+          <h4 class="mt-3">Position</h4>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="btn-group btn-change-pattern-position" role="group">
+                <button
+                  type="button"
+                  class="btn btn-dark"
+                  onclick="changePatternPosition('topright', $(this))"
+                >TOP RIGHT</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changePatternPosition('topleft', $(this))"
+                >TOP LEFT</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changePatternPosition('center', $(this))"
+                >CENTER</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changePatternPosition('bottomleft', $(this))"
+                >BOTTOM LEFT</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  onclick="changePatternPosition('bottomright', $(this))"
+                >BOTTOM RIGHT</button>
+              </div>
+            </div>
+          </div>
+          {{! End position section }}
+          <button
+            type="button"
+            class="btn btn-lg form-control btn-success mt-5"
+          ><i class="fa-solid fa-save"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main><!-- End #main -->

@@ -7,6 +7,9 @@ router.use(cookieParser());
 const siteController = require("../controllers/SiteController");
 
 
+// [GET} /customize
+router.get("/customize", siteController.customize);
+
 // [GET} /login
 router.get("/login", siteController.login);
 

@@ -14,7 +14,7 @@ const flash = require('req-flash');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-db.connect();
+// db.connect();
 
 const hbs = exphbs.create({  
   helpers:require('./ulti/helpers'),

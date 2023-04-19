@@ -33,7 +33,6 @@ $(document).ready(function() {
                     return className.split(' ').filter(c => c.includes('col-')).join(' ');
                 });
                 $(items[i]).addClass('col-lg-3 col-md-6 col-sm-12');
-                // break;
             }
             else if($(items[i]).hasClass(dataFilter)){
                 $(items[i]).show();
