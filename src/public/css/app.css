@@ -3,6 +3,9 @@
   .login-img {
     display: none; } }
 
+.login-img > img {
+  height: 600px; }
+
 .image-container {
   height: 500px;
   position: relative; }

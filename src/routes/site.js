@@ -6,17 +6,25 @@ router.use(cookieParser());
 
 const siteController = require("../controllers/SiteController");
 
+// [POST] /store
+router.post("/store", siteController.store);
 
-// [GET} /customize
+// [POST] /validate
+router.post("/validate", siteController.validate);
+
+// [GET] /customize
 router.get("/customize", siteController.customize);
 
-// [GET} /login
+// [GET] /login
 router.get("/login", siteController.login);
+
+// [GET] /register
+router.get("/register", siteController.register);
 
 //[GET] /error/:slug
 router.use("/:slug", siteController.error);
 
-// [GET} /index
+// [GET] /index
 router.get("/", siteController.index);
 
 module.exports = router;

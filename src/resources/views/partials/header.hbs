@@ -6,6 +6,7 @@
       </div>
       <div class="container-xl d-flex flex-end justify-content-end">
         {{#ifNotEq isLoginPage true}}<a href="/login">Login</a>{{/ifNotEq}}
+        {{#ifeq isLoginPage true}}<a href="/register">Register</a>{{/ifeq}}
       </div>
     </div>
   </section>

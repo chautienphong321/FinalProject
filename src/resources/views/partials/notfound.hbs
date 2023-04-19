@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <title>Pages / Not Found 404</title>
+    <title>Error - {{#if status}}{{status}}{{else}}Not Found 404{{/if}}</title>
 
     <!-- Favicons -->
     <link href="/assets/img/favicon.png" rel="icon" />
@@ -36,8 +36,9 @@
         <section
           class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center"
         >
-          <h1>404</h1>
-          <h2>The page you are looking for doesn't exist.</h2>
+          <h1>{{#if status}}{{status}}{{else}}404{{/if}}</h1>
+          <h2>{{#if status}}{{status}}{{else}}The page you are looking for
+              doesn't exist.{{/if}}</h2>
           <a class="btn" href="/">Back to home</a>
           <img
             src="/assets/img/not-found.svg"

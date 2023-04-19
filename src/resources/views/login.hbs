@@ -12,13 +12,13 @@
             <div class="card border-0 shadow rounded-3 my-5">
               <div class="card-body p-4 p-sm-5">
                 <h2 class="text-center mb-5 fs-2">Sign In</h2>
-                <form>
+                <form action="/validate" method="POST">
                   <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" {{#if messages.email}}value="{{messages.email}}"{{/if}}>
                     <label for="floatingInput">Email address</label>
                   </div>
                   <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" autocomplete="" name="password">
                     <label for="floatingPassword">Password</label>
                   </div>
     
@@ -28,6 +28,16 @@
                       Remember password
                     </label>
                   </div>
+                  {{#if messages.error}}
+                    <div class="alert alert-danger" role="alert">
+                      {{messages.error}}
+                    </div>
+                  {{/if}}
+                  {{#if messages.success}}
+                    <div class="alert alert-success" role="alert">
+                      {{messages.success}}
+                    </div>
+                  {{/if}}
                   <div class="d-grid">
                     <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign
                       in</button>
