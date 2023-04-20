@@ -1,11 +1,10 @@
+class ShopController {
+  // [GET] - Index
+  index(req, res, next) {
+    return res.render("shop", {
+      title: "Shop",
+    });
+  }
+}
 
-class SiteController {
-    // [GET] - Index
-    index(req, res, next){
-        return res.render('shop', {
-            title: 'Shop'
-        });
-    };
-};
-
-module.exports = new SiteController;
+module.exports = new ShopController();

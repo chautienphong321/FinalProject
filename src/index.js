@@ -50,6 +50,8 @@ app.use(morgan("combined"));
 
 app.use(flash());
 
+app.use(cookieParser());
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
