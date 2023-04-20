@@ -1,5 +1,6 @@
 @import "login.scss";
 @import "customize.scss";
+@import "shop.scss";
 
 body {
   font-family: "Poppins", sans-serif;
@@ -1657,7 +1658,7 @@ section {
   display: inline-block;
   font-size: 12px;
   font-weight: 500;
-  left: 20px;
+  left: 30px;
   letter-spacing: 1px;
   padding: 3px 12px;
   position: absolute;
@@ -1687,7 +1688,6 @@ section {
 .product-action .product-action-style a:hover {
   color: #ffb03b;
 }
-
 /*--------------------------------------------------------------
   # Shop Filter Section
   --------------------------------------------------------------*/
