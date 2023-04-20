@@ -18,6 +18,9 @@ router.get("/login", siteController.login);
 // [GET] /register
 router.get("/register", siteController.register);
 
+// [GET] /logout
+router.get("/logout", siteController.logout);
+
 // [GET] /customize
 router.get("/customize", verifyToken, siteController.customize);
 

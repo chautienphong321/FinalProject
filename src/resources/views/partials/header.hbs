@@ -5,7 +5,7 @@
         <i class="bi bi-clock ms-4 d-none d-lg-flex align-items-center"><span>Mon-Sun: 9:00 AM - 22:00 PM</span></i>
       </div>
       <div class="container-xl d-flex flex-end align-items-center justify-content-end ">
-        {{#if user}}<h4 class="my-0">Hello {{user.name}}!</h4>
+        {{#if user}}<h4 class="my-0" id="hello-user-text" onclick="logout()" role="button">Hello {{user.name}}!</h4>
         {{else}}
           {{#ifNotEq isLoginPage true}}<a href="/login">Login</a>{{/ifNotEq}}
           {{#ifeq isLoginPage true}}<a href="/register">Register</a>{{/ifeq}}

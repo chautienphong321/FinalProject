@@ -196,6 +196,12 @@ class SiteController {
       })
       .catch((err) => console.log(err));
   }
+
+  // [GET] - logout
+  logout(req, res, next) {
+    res.clearCookie("token");
+    return res.redirect("/");
+  }
 }
 
 module.exports = new SiteController();
