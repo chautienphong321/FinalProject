@@ -74,7 +74,15 @@ function changeKind(pKind, button) {
 function changePattern(pPattern, button) {
   pattern = pPattern;
 
-  patternElement.attr("class", "fa-2x fa-solid fa-" + pPattern);
+  if (pPattern === "times") {
+    patternElement.removeAttr("class");
+    $(".btn-change-pattern-color>button").attr("disabled", true);
+    $(".btn-change-pattern-position>button").attr("disabled", true);
+  } else {
+    patternElement.attr("class", "fa-2x fa-solid fa-" + pPattern);
+    $(".btn-change-pattern-color>button").attr("disabled", false);
+    $(".btn-change-pattern-position>button").attr("disabled", false);
+  }
 
   $(".btn-change-pattern>button").attr("class", "btn btn-outline-dark");
   button.removeClass("btn-outline-dark").addClass("btn-dark");
