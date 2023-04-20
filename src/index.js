@@ -12,12 +12,13 @@ const { default: mongoose } = require("mongoose");
 //const MongoStore = require('connect-mongo')(session);
 const flash = require("express-flash");
 const nodemailer = require("nodemailer");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 db.connect();
 
 const hbs = exphbs.create({
-  helpers: require("./ulti/helpers"),
+  helpers: require("./utils/helpers"),
   extname: ".hbs",
 });
 
@@ -31,7 +32,7 @@ app.set("views", path.join(__dirname, "resources/views"));
 
 app.use(
   session({
-    secret: "foo",
+    secret: "secretpasstoken",
     resave: false,
     saveUninitialized: true,
     //store: new MongoStore({ mongooseConnection: mongoose.connection }),

@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const { mulToObject, toObject } = require("../utils/jsonToObject");
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -6,7 +7,11 @@ const jwt = require("jsonwebtoken");
 class SiteController {
   // [GET] - Index
   index(req, res, next) {
-    return res.render("home", { isHomePage: true });
+    return res.render("home", {
+      isHomePage: true,
+      user: toObject(req.user),
+      isAdmin: req.isAdmin,
+    });
   }
 
   // [GET] - Error
@@ -19,11 +24,17 @@ class SiteController {
 
   // [GET] - login
   login(req, res, next) {
+    if (req.cookies && req.cookies.token) {
+      return res.redirect("/");
+    }
     return res.render("login", { isLoginPage: true, title: "Login" });
   }
 
   // [GET] - register
   register(req, res, next) {
+    if (req.cookies && req.cookies.token) {
+      return res.redirect("/");
+    }
     return res.render("register", { title: "Register" });
   }
 
@@ -32,6 +43,8 @@ class SiteController {
     return res.render("customize", {
       isCustomizePage: true,
       title: "Customize",
+      user: toObject(req.user),
+      isAdmin: req.isAdmin,
     });
   }
 
@@ -70,7 +83,7 @@ class SiteController {
                     maxAge: 2147483647,
                     httpOnly: true,
                   });
-                  return res.redirect("/");
+                  return res.redirect("back");
                 })
                 .catch((err) => {
                   req.flash("error", "There is an error with your login");
@@ -158,6 +171,7 @@ class SiteController {
           var temp = req.body.password;
           bcrypt.hash(temp, 10, function (err, hash) {
             const user = new User({
+              name: req.body.email.split("@")[0].trim(),
               role: "Customer",
               password: hash,
               email: req.body.email,

@@ -36,9 +36,9 @@
         <section
           class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center"
         >
-          <h1>{{#if status}}{{status}}{{else}}404{{/if}}</h1>
-          <h2>{{#if status}}{{status}}{{else}}The page you are looking for
-              doesn't exist.{{/if}}</h2>
+          <h1>{{#if messages.status}}{{messages.status}}{{else}}404{{/if}}</h1>
+          <h2>{{#if messages.error}}{{messages.error}}{{else}}The page you are
+              looking for doesn't exist.{{/if}}</h2>
           <a class="btn" href="/">Back to home</a>
           <img
             src="/assets/img/not-found.svg"

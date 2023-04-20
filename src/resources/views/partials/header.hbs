@@ -4,9 +4,12 @@
         <i class="bi bi-phone align-items-center"><span>+84 123 456 789</span></i>
         <i class="bi bi-clock ms-4 d-none d-lg-flex align-items-center"><span>Mon-Sun: 9:00 AM - 22:00 PM</span></i>
       </div>
-      <div class="container-xl d-flex flex-end justify-content-end">
-        {{#ifNotEq isLoginPage true}}<a href="/login">Login</a>{{/ifNotEq}}
-        {{#ifeq isLoginPage true}}<a href="/register">Register</a>{{/ifeq}}
+      <div class="container-xl d-flex flex-end align-items-center justify-content-end ">
+        {{#if user}}<h4 class="my-0">Hello {{user.name}}!</h4>
+        {{else}}
+          {{#ifNotEq isLoginPage true}}<a href="/login">Login</a>{{/ifNotEq}}
+          {{#ifeq isLoginPage true}}<a href="/register">Register</a>{{/ifeq}}
+        {{/if}}
       </div>
     </div>
   </section>
@@ -41,7 +44,7 @@
           </li>
           <li><a class="nav-link scrollto" href="/#info">Info</a></li>
           <li><a class="nav-link scrollto {{#ifeq title 'Customize'}}active{{/ifeq}}" href="/customize">Customize</a></li>
-          <li><a href="/admin" class="nav-link management-btn">Management</a></li>
+          {{#if isAdmin}}<li><a href="/admin" class="nav-link management-btn">Management</a></li>{{/if}}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
