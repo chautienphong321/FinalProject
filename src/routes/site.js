@@ -6,6 +6,9 @@ router.use(cookieParser());
 const { verifyToken } = require("../utils/verifyToken");
 const siteController = require("../controllers/SiteController");
 
+// [GET] /shop
+router.get("/shop", siteController.shop);
+
 // [POST] /store
 router.post("/store", siteController.store);
 

@@ -3,6 +3,8 @@ const Carousel = require("../models/Carousel");
 const Video = require("../models/Video");
 const Gallery = require("../models/Gallery");
 const Location = require("../models/Location");
+const Type = require("../models/Type");
+const Product = require("../models/Product");
 const { mulToObject, toObject } = require("../utils/jsonToObject");
 
 const bcrypt = require("bcrypt");
@@ -39,6 +41,21 @@ class SiteController {
         filterDistricts,
       });
     });
+  }
+
+  // [GET] /shop
+  shop(req, res, next) {
+    Promise.all([Product.find().populate("type"), Type.find()]).then(
+      ([products, types]) => {
+        res.render("shop", {
+          user: toObject(req.user),
+          isAdmin: req.isAdmin,
+          title: "Shop",
+          products: mulToObject(products),
+          types: mulToObject(types),
+        });
+      }
+    );
   }
 
   // [GET] - Error

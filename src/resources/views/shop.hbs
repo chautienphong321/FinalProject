@@ -28,9 +28,12 @@
             <div class="col-lg-12 d-flex justify-content-center">
               <ul id="shop-flters">
                 <li data-filter="*" class="filter-active">Show All</li>
-                <li data-filter="shop-filter-men">Men</li>
-                <li data-filter="shop-filter-women">Women</li>
-                <li data-filter="shop-filter-unisex">Unisex</li>
+                {{#each types}}
+                  <li
+                    data-filter="shop-filter-{{name}}"
+                    class="text-capitalize"
+                  >{{name}}</li>
+                {{/each}}
               </ul>
 
             </div>
@@ -58,264 +61,31 @@
         <div
           class="d-flex flex-wrap justify-content-around shop-filter-container"
         >
-          <div class="w-25 shop-filter-item shop-filter-men">
-            <div class="product-wrapper mb-45 text-center">
-              <div class="product-img">
-                <a href="#" data-abc="true">
-                  <img
-                    src="https://i.imgur.com/tL7ZE46.jpg"
-                    alt=""
-                    class="rounded-2"
-                  />
-                </a>
-                <span class="text-center shadow-lg"><i
-                    class="fa fa-dollar-sign"
-                  ></i>
-                  <span class="item-price" value="4300">4,300</span></span>
-                <div class="product-action">
-                  <div class="product-action-style">
-                    <a href="#"> <i class="fa fa-info"></i> </a>
-                    <a href="#"> <i class="fa fa-heart"></i> </a>
-                    <a href="#"> <i class="fa fa-shopping-cart"></i> </a>
+          {{#each products}}
+            <div class="w-25 shop-filter-item shop-filter-{{type.name}}">
+              <div class="product-wrapper mb-45 text-center">
+                <div class="product-img">
+                  <a href="#" data-abc="true">
+                    <img src="{{image}}" alt="" class="rounded-2" />
+                  </a>
+                  <span class="text-center shadow-lg"><i
+                      class="fa fa-dollar-sign"
+                    ></i>
+                    <span
+                      class="item-price"
+                      value="{{price}}"
+                    >{{formatCurrencyShop price}}</span></span>
+                  <div class="product-action">
+                    <div class="product-action-style">
+                      <a href="#"> <i class="fa fa-info"></i> </a>
+                      <a href="#"> <i class="fa fa-heart"></i> </a>
+                      <a href="#"> <i class="fa fa-shopping-cart"></i> </a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="w-25 shop-filter-item shop-filter-women">
-            <div class="product-wrapper mb-45 text-center">
-              <div class="product-img">
-                <a href="#" data-abc="true">
-                  <img src="https://i.imgur.com/lAQxXCK.jpg" alt="" />
-                </a>
-                <span><i class="fa fa-dollar-sign"></i>
-                  <span class="item-price" value="4100">4,100</span></span>
-                <div class="product-action">
-                  <div class="product-action-style">
-                    <a
-                      class="action-plus"
-                      title="Quick View"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-info"></i> </a>
-                    <a
-                      class="action-heart"
-                      title="Wishlist"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-heart"></i> </a>
-                    <a
-                      class="action-cart"
-                      title="Add To Cart"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-shopping-cart"></i> </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="w-25 shop-filter-item shop-filter-men">
-            <div class="product-wrapper mb-45 text-center">
-              <div class="product-img">
-                <a href="#" data-abc="true">
-                  <img src="https://i.imgur.com/HxEEu5g.jpg" alt="" />
-                </a>
-                <span><i class="fa fa-dollar-sign"></i>
-                  <span class="item-price" value="3300">3,300</span></span>
-                <div class="product-action">
-                  <div class="product-action-style">
-                    <a
-                      class="action-plus"
-                      title="Quick View"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-info"></i> </a>
-                    <a
-                      class="action-heart"
-                      title="Wishlist"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-heart"></i> </a>
-                    <a
-                      class="action-cart"
-                      title="Add To Cart"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-shopping-cart"></i> </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="w-25 shop-filter-item shop-filter-women">
-            <div class="product-wrapper mb-45 text-center">
-              <div class="product-img">
-                <a href="#" data-abc="true">
-                  <img src="https://i.imgur.com/lAQxXCK.jpg" alt="" />
-                </a>
-                <span><i class="fa fa-dollar-sign"></i>
-                  <span class="item-price" value="2300">2,300</span></span>
-                <div class="product-action">
-                  <div class="product-action-style">
-                    <a
-                      class="action-plus"
-                      title="Quick View"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-info"></i> </a>
-                    <a
-                      class="action-heart"
-                      title="Wishlist"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-heart"></i> </a>
-                    <a
-                      class="action-cart"
-                      title="Add To Cart"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-shopping-cart"></i> </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="w-25 shop-filter-item shop-filter-men">
-            <div class="product-wrapper mb-45 text-center">
-              <div class="product-img">
-                <a href="#" data-abc="true">
-                  <img
-                    src="https://i.imgur.com/tL7ZE46.jpg"
-                    alt=""
-                    class="rounded-2"
-                  />
-                </a>
-                <span class="text-center shadow-lg"><i
-                    class="fa fa-dollar-sign"
-                  ></i>
-                  <span class="item-price" value="4300">4,300</span></span>
-                <div class="product-action">
-                  <div class="product-action-style">
-                    <a href="#"> <i class="fa fa-info"></i> </a>
-                    <a href="#"> <i class="fa fa-heart"></i> </a>
-                    <a href="#"> <i class="fa fa-shopping-cart"></i> </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="w-25 shop-filter-item shop-filter-women">
-            <div class="product-wrapper mb-45 text-center">
-              <div class="product-img">
-                <a href="#" data-abc="true">
-                  <img src="https://i.imgur.com/lAQxXCK.jpg" alt="" />
-                </a>
-                <span><i class="fa fa-dollar-sign"></i>
-                  <span class="item-price" value="4100">4,100</span></span>
-                <div class="product-action">
-                  <div class="product-action-style">
-                    <a
-                      class="action-plus"
-                      title="Quick View"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-info"></i> </a>
-                    <a
-                      class="action-heart"
-                      title="Wishlist"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-heart"></i> </a>
-                    <a
-                      class="action-cart"
-                      title="Add To Cart"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-shopping-cart"></i> </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="w-25 shop-filter-item shop-filter-men">
-            <div class="product-wrapper mb-45 text-center">
-              <div class="product-img">
-                <a href="#" data-abc="true">
-                  <img src="https://i.imgur.com/HxEEu5g.jpg" alt="" />
-                </a>
-                <span><i class="fa fa-dollar-sign"></i>
-                  <span class="item-price" value="3300">3,300</span></span>
-                <div class="product-action">
-                  <div class="product-action-style">
-                    <a
-                      class="action-plus"
-                      title="Quick View"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-info"></i> </a>
-                    <a
-                      class="action-heart"
-                      title="Wishlist"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-heart"></i> </a>
-                    <a
-                      class="action-cart"
-                      title="Add To Cart"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-shopping-cart"></i> </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="w-25 shop-filter-item shop-filter-unisex">
-            <div class="product-wrapper mb-45 text-center">
-              <div class="product-img">
-                <a href="#" data-abc="true">
-                  <img src="https://i.imgur.com/lAQxXCK.jpg" alt="" />
-                </a>
-                <span><i class="fa fa-dollar-sign"></i>
-                  <span class="item-price" value="2300">2,300</span></span>
-                <div class="product-action">
-                  <div class="product-action-style">
-                    <a
-                      class="action-plus"
-                      title="Quick View"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-info"></i> </a>
-                    <a
-                      class="action-heart"
-                      title="Wishlist"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-heart"></i> </a>
-                    <a
-                      class="action-cart"
-                      title="Add To Cart"
-                      href="#"
-                      data-abc="true"
-                    > <i class="fa fa-shopping-cart"></i> </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          {{/each}}
         </div>
       </div>
       {{! End content }}

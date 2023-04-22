@@ -65,6 +65,8 @@ module.exports = {
       minimumFractionDigits: 2,
     });
     return `${formattedValue.slice(0, -3)}.00`;
-    // return value
+  },
+  formatCurrencyShop: function (value) {
+    return value.toLocaleString("en-US", { minimumFractionDigits: 2 });
   },
 };
