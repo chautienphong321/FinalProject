@@ -47,22 +47,15 @@ module.exports = {
       })
       .replace(/-/g, " ");
   },
-  getTime: function (from, to) {
-    const fromTime = new Date(from);
-    fromTime.setHours(fromTime.getHours() + 16);
-    const formattedFromTime = fromTime.toLocaleTimeString("en-US", {
+  getTime: function (val) {
+    const time = new Date(val);
+    time.setHours(time.getHours() + 16);
+    const formatTime = time.toLocaleTimeString("en-US", {
       hour: "2-digit",
       minute: "2-digit",
     });
 
-    const toTime = new Date(to);
-    toTime.setHours(toTime.getHours() + 16);
-    const formattedToTime = toTime.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-
-    return `${formattedFromTime} - ${formattedToTime}`;
+    return formatTime;
   },
   // formatCurrency: function (value) {
   //   if (value == 0) return value;

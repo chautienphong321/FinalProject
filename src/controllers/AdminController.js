@@ -128,11 +128,14 @@ class AdminController {
 
   // [GET] - location
   location(req, res, next) {
-    return res.render("admin/location", {
-      layout: "adminLayout",
-      user: toObject(req.user),
-      title: "Location",
-      tab: "Customize",
+    Location.find().then((locations) => {
+      return res.render("admin/location", {
+        layout: "adminLayout",
+        user: toObject(req.user),
+        title: "Location",
+        tab: "Customize",
+        locations: mulToObject(locations),
+      });
     });
   }
   // [POST] - /location/store
@@ -196,6 +199,20 @@ class AdminController {
       .catch((err) => {
         req.flash("error", "Save fail!");
         return res.redirect("back");
+      });
+  }
+  // [GET] - /location/delete?id=
+  locationDelete(req, res, next) {
+    const locationId = req.params.id;
+    console.log(locationId);
+    Location.deleteOne({ _id: locationId })
+      .then(() => {
+        req.flash("successLocation", "Delete successful!");
+        return res.redirect("/admin/location#location-table");
+      })
+      .catch((err) => {
+        req.flash("errorLocation", "Delete fail!");
+        return res.redirect("/admin/location#location-table");
       });
   }
 }

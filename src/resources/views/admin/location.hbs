@@ -162,47 +162,63 @@
             used in applications that require users to search for nearby
             businesses or services, or to provide location-based services such
             as directions or recommendations.</p>
-
+          {{#if messages}}
+            {{#if messages.errorLocation}}
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                role="alert"
+              >
+                <i class="bi bi-check-circle me-1"></i>
+                {{messages.errorLocation}}
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
+              </div>
+            {{/if}}
+            {{#if messages.successLocation}}
+              <div
+                class="alert alert-success alert-dismissible fade show"
+                role="alert"
+              >
+                <i class="bi bi-exclamation-octagon me-1"></i>
+                {{messages.successLocation}}
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
+              </div>
+            {{/if}}
+          {{/if}}
           <!-- Table with stripped rows -->
-          <table class="table datatable">
+          <table class="table datatable" id="location-table">
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Image Url</th>
-                <th scope="col">Image Preview</th>
+                <th scope="col">Name</th>
+                <th scope="col">Address</th>
+                <th scope="col">Open at</th>
+                <th scope="col">Close at</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>{{carousel.imageOne}}</td>
-                <td><img
-                    class="img-fluid"
-                    style="max-width: 300px"
-                    src="{{carousel.imageOne}}"
-                    alt="imageOne"
-                  /></td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>{{carousel.imageTwo}}</td>
-                <td><img
-                    class="img-fluid"
-                    style="max-width: 300px"
-                    src="{{carousel.imageTwo}}"
-                    alt="imageTwo"
-                  /></td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>{{carousel.imageThree}}</td>
-                <td><img
-                    class="img-fluid"
-                    style="max-width: 300px"
-                    src="{{carousel.imageThree}}"
-                    alt="imageThree"
-                  /></td>
-              </tr>
+              {{#each locations}}
+                <tr>
+                  <th scope="row">{{@index}}</th>
+                  <td>{{name}}</td>
+                  <td>{{address}}</td>
+                  <td>{{getTime from}}</td>
+                  <td>{{getTime to}}</td>
+                  <td><a href="/admin/location/delete/{{_id}}"><button
+                        class="btn btn-danger"
+                      ><i class="bi bi-trash"></i></button></a></td>
+                </tr>
+              {{/each}}
             </tbody>
           </table>
           <!-- End Table with stripped rows -->
