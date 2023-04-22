@@ -3,6 +3,7 @@ const Role = require("../models/Role");
 const Carousel = require("../models/Carousel");
 const Video = require("../models/Video");
 const Gallery = require("../models/Gallery");
+const Location = require("../models/Location");
 class AdminController {
   // [GET] - Index
   index(req, res, next) {
@@ -133,6 +134,69 @@ class AdminController {
       title: "Location",
       tab: "Customize",
     });
+  }
+  // [POST] - /location/store
+  locationStore(req, res, next) {
+    var addressDistrict;
+    switch (req.body.district) {
+      case "district-1":
+        addressDistrict = "Quận 1";
+        break;
+      case "district-2":
+        addressDistrict = "Quận 2";
+        break;
+      case "district-3":
+        addressDistrict = "Quận 3";
+        break;
+      case "district-4":
+        addressDistrict = "Quận 4";
+        break;
+      case "district-5":
+        addressDistrict = "Quận 5";
+        break;
+      case "district-6":
+        addressDistrict = "Quận 6";
+        break;
+      case "district-7":
+        addressDistrict = "Quận 7";
+        break;
+      case "district-8":
+        addressDistrict = "Quận 8";
+        break;
+      case "district-9":
+        addressDistrict = "Quận 9";
+        break;
+      case "district-10":
+        addressDistrict = "Quận 10";
+        break;
+      case "district-11":
+        addressDistrict = "Quận 11";
+        break;
+      case "district-12":
+        addressDistrict = "Quận 12";
+        break;
+      default:
+        addressDistrict = "Quận 1";
+        break;
+    }
+    var newLocation = new Location({
+      name: req.body.name,
+      address: req.body.address + ", " + addressDistrict,
+      district: req.body.district,
+      from: new Date(`1970-01-01T${req.body.from}:00.000Z`),
+      to: new Date(`1970-01-01T${req.body.to}:00.000Z`),
+    });
+
+    newLocation
+      .save()
+      .then(() => {
+        req.flash("success", "Save succesful!");
+        return res.redirect("back");
+      })
+      .catch((err) => {
+        req.flash("error", "Save fail!");
+        return res.redirect("back");
+      });
   }
 }
 

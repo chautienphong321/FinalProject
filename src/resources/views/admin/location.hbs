@@ -1,0 +1,241 @@
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Create a
+            {{title}}
+            for shop
+          </h5>
+
+          <!-- General Form Elements -->
+          <form
+            class="needs-validation"
+            action="/admin/location/store"
+            method="POST"
+          >
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">Name location</label>
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  placeholder="Bitexco"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">Address</label>
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="address"
+                  placeholder="Số 2 Hải Triều, P.Bến Nghé"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">District</label>
+              <div class="col-sm-10">
+                <select
+                  class="form-select"
+                  aria-label="Select District"
+                  name="district"
+                  required
+                >
+                  <option disabled>Choose district</option>
+                  <option selected value="district-1">Quận 1</option>
+                  <option value="district-2">Quận 2</option>
+                  <option value="district-3">Quận 3</option>
+                  <option value="district-4">Quận 4</option>
+                  <option value="district-5">Quận 5</option>
+                  <option value="district-6">Quận 6</option>
+                  <option value="district-7">Quận 7</option>
+                  <option value="district-8">Quận 8</option>
+                  <option value="district-9">Quận 1</option>
+                  <option value="district-10">Quận 10</option>
+                  <option value="district-11">Quận 11</option>
+                  <option value="district-12">Quận 12</option>
+                  <option value="district-binhthanh">Quận Bình Thạnh</option>
+                  <option value="district-12">Bình Tân</option>
+                  <option value="district-12">Gò Vấp</option>
+                  <option value="district-12">Phú Nhuận</option>
+                  <option value="district-12">Tân Bình</option>
+                  <option value="district-12">Tân Phú</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">From</label>
+              <div class="col-sm-10">
+                <div class="input-group"><input
+                    type="time"
+                    class="form-control"
+                    name="from"
+                    value="09:00"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">To</label>
+              <div class="col-sm-10">
+                <div class="input-group"><input
+                    type="time"
+                    class="form-control"
+                    name="to"
+                    value="22:00"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {{#if messages}}
+              <div class="row mb-3">
+                {{#if messages.error}}
+                  <div
+                    class="alert alert-danger alert-dismissible fade show"
+                    role="alert"
+                  >
+                    <i class="bi bi-check-circle me-1"></i>
+                    {{messages.error}}
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="alert"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                {{/if}}
+                {{#if messages.success}}
+                  <div
+                    class="alert alert-success alert-dismissible fade show"
+                    role="alert"
+                  >
+                    <i class="bi bi-exclamation-octagon me-1"></i>
+                    {{messages.success}}
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="alert"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                {{/if}}
+              </div>
+            {{/if}}
+            <div class="d-flex justify-content-center mb-3">
+              <button type="submit" class="btn btn-success">Save</button>
+            </div>
+
+          </form><!-- End General Form Elements -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{{! Data }}
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{title}}</h5>
+          <p>The
+            <code>location</code>
+            table is a database table that stores information about locations,
+            such as their name, address, latitude, and longitude. It is commonly
+            used in applications that require users to search for nearby
+            businesses or services, or to provide location-based services such
+            as directions or recommendations.</p>
+
+          <!-- Table with stripped rows -->
+          <table class="table datatable">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Image Url</th>
+                <th scope="col">Image Preview</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>{{carousel.imageOne}}</td>
+                <td><img
+                    class="img-fluid"
+                    style="max-width: 300px"
+                    src="{{carousel.imageOne}}"
+                    alt="imageOne"
+                  /></td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>{{carousel.imageTwo}}</td>
+                <td><img
+                    class="img-fluid"
+                    style="max-width: 300px"
+                    src="{{carousel.imageTwo}}"
+                    alt="imageTwo"
+                  /></td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>{{carousel.imageThree}}</td>
+                <td><img
+                    class="img-fluid"
+                    style="max-width: 300px"
+                    src="{{carousel.imageThree}}"
+                    alt="imageThree"
+                  /></td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="imageModal"
+  tabindex="-1"
+  aria-labelledby="imageModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <img id="imagePreview" class="img-fluid" src="" alt="Preview Image" />
+      </div>
+    </div>
+  </div>
+</div>

@@ -518,95 +518,25 @@
         <div class="col-lg-12 d-flex justify-content-center">
           <ul id="menu-flters">
             <li data-filter="*" class="filter-active">Show All</li>
-            <li data-filter=".filter-district-1">District 1</li>
-            <li data-filter=".filter-district-3">District 3</li>
-            <li data-filter=".filter-district-7">District 7</li>
+            {{#each filterDistricts}}
+            <li data-filter=".filter-{{district}}">{{formatFilter district}}</li>
+            {{/each}}
           </ul>
         </div>
       </div>
 
       <div class="row location-container">
 
-        <div class="col-lg-6 menu-item filter-district-1">
+        {{#each locations}}
+        <div class="col-lg-6 menu-item filter-{{district}}">
           <div class="menu-content">
-            <a href="#">Nowzone Fashion</a><span>9 A.M - 10 P.M</span>
+            <a href="#">{{name}}</a><span>{{getTime from to}}</span>
           </div>
           <div class="menu-ingredients">
-            235 Nguyễn Văn Cừ, P.Nguyễn Cư Trinh, Quận 1
+            {{address}}
           </div>
         </div>
-
-        <div class="col-lg-6 menu-item filter-district-7">
-          <div class="menu-content">
-            <a href="#">Diamond Plaza</a><span>9 A.M - 10 P.M</span>
-          </div>
-          <div class="menu-ingredients">
-            34 Lê Duẩn, P.Bến Nghé, Quận 7
-          </div>
-        </div>
-
-        <div class="col-lg-6 menu-item filter-district-1">
-          <div class="menu-content">
-            <a href="#">Central Market</a><span>9 A.M - 10 P.M</span>
-          </div>
-          <div class="menu-ingredients">
-            Số 4 Phạm Ngũ Lão, P.Phạm Ngũ Lão, Quận 1
-          </div>
-        </div>
-
-        <div class="col-lg-6 menu-item filter-district-3">
-          <div class="menu-content">
-            <a href="#">Takashimaya</a><span>8 A.M - 11 P.M</span>
-          </div>
-          <div class="menu-ingredients">
-            92-94 Nam Kỳ Khởi Nghĩa, P.Bến Nghé, Quận 3
-          </div>
-        </div>
-
-        <div class="col-lg-6 menu-item filter-district-7">
-          <div class="menu-content">
-            <a href="#">Saigon Garden</a><span>8 A.M - 11 P.M</span>
-          </div>
-          <div class="menu-ingredients">
-            Số 99 Nguyễn Huệ, P.Bến Nghé, Quận 7
-          </div>
-        </div>
-
-        <div class="col-lg-6 menu-item filter-district-1">
-          <div class="menu-content">
-            <a href="#">Bitexco Tower</a><span>Open all day</span>
-          </div>
-          <div class="menu-ingredients">
-            Số 2 Hải Triều, P.Bến Nghé, Quận 1
-          </div>
-        </div>
-
-        <div class="col-lg-6 menu-item filter-district-3">
-          <div class="menu-content">
-            <a href="#">Parkson Saigon</a><span>9 A.M - 10 P.M</span>
-          </div>
-          <div class="menu-ingredients">
-            Số 35 – 45 Lê Thánh Tôn, P.Bến Nghé, Quận 3
-          </div>
-        </div>
-
-        <div class="col-lg-6 menu-item filter-district-3">
-          <div class="menu-content">
-            <a href="#">Vincom Đồng Khởi</a><span>9 A.M - 10 P.M</span>
-          </div>
-          <div class="menu-ingredients">
-            Số 72 Lê Thánh Tôn, P.Bến Nghé, Quận 3
-          </div>
-        </div>
-
-        <div class="col-lg-6 menu-item filter-district-7">
-          <div class="menu-content">
-            <a href="#">Co.opmart</a><span>7 A.M - 9 P.M</span>
-          </div>
-          <div class="menu-ingredients">
-            189C Cống Quỳnh, P.Nguyễn Cư Trinh, Quận 7
-          </div>
-        </div>
+        {{/each}}
 
       </div>
 

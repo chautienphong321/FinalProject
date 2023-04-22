@@ -23,6 +23,9 @@ router.post("/gallery/store", adminController.galleryStore);
 // [GET] /gallery
 router.get("/gallery", adminController.gallery);
 
+// [POST] /location/store
+router.post("/location/store", adminController.locationStore);
+
 // [GET] /location
 router.get("/location", adminController.location);
 

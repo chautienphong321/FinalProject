@@ -3,10 +3,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const Location = new Schema({
-  workspace: {
-    type: Schema.Types.ObjectId,
-    ref: "Workspace",
-  },
+  // workspace: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "Workspace",
+  // },
   name: {
     type: String,
     required: true,
@@ -22,17 +22,17 @@ const Location = new Schema({
   from: {
     type: Date,
     default: function () {
-      const now = new Date();
-      now.setHours(9, 0, 0, 0);
-      return now;
+      const fromTime = new Date();
+      fromTime.setHours(9, 0, 0, 0);
+      return fromTime;
     },
   },
   to: {
     type: Date,
     default: function () {
-      const now = new Date();
-      now.setHours(10, 0, 0, 0);
-      return now;
+      const toTime = new Date();
+      toTime.setHours(10, 0, 0, 0);
+      return toTime;
     },
   },
 });
