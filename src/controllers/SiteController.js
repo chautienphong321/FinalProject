@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Carousel = require("../models/Carousel");
 const { mulToObject, toObject } = require("../utils/jsonToObject");
 
 const bcrypt = require("bcrypt");
@@ -7,10 +8,13 @@ const jwt = require("jsonwebtoken");
 class SiteController {
   // [GET] - Index
   index(req, res, next) {
-    return res.render("home", {
-      isHomePage: true,
-      user: toObject(req.user),
-      isAdmin: req.isAdmin,
+    Carousel.find().then((carousel) => {
+      return res.render("home", {
+        isHomePage: true,
+        user: toObject(req.user),
+        isAdmin: req.isAdmin,
+        carousel: toObject(carousel[0]),
+      });
     });
   }
 

@@ -13,7 +13,7 @@
 
         <div
           class="carousel-item active"
-          style="background-image: url(/assets/img/slide/slide-1.jpg);"
+          style="background-image: url({{#if carousel}}{{carousel.imageOne}}{{else}}/assets/img/slide/slide-1.jpg{{/if}});"
         >
           <div class="carousel-container">
             <div class="carousel-content">
@@ -34,7 +34,8 @@
 
         <div
           class="carousel-item"
-          style="background-image: url(/assets/img/slide/slide-2.jpg);"
+                    style="background-image: url({{#if carousel}}{{carousel.imageTwo}}{{else}}/assets/img/slide/slide-2.jpg{{/if}});"
+
         >
           <div class="carousel-container">
             <div class="carousel-content">
@@ -57,7 +58,8 @@
 
         <div
           class="carousel-item"
-          style="background-image: url(/assets/img/slide/slide-3.jpg);"
+                    style="background-image: url({{#if carousel}}{{carousel.imageThree}}{{else}}/assets/img/slide/slide-3.jpg{{/if}});"
+
         >
           <div class="carousel-container">
             <div class="carousel-content">

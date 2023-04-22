@@ -17,7 +17,6 @@ function verifyToken(req, res, next) {
             Role.findOne({ _id: user.role }).then((role) => {
               if (role.name == "Admin") {
                 req.isAdmin = true;
-                console.log("is admin");
               }
             });
             req.user = user;

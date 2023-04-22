@@ -1,5 +1,6 @@
 const { mulToObject, toObject } = require("../utils/jsonToObject");
-
+const Role = require("../models/Role");
+const Carousel = require("../models/Carousel");
 class AdminController {
   // [GET] - Index
   index(req, res, next) {
@@ -16,15 +17,72 @@ class AdminController {
       layout: "adminLayout",
       user: toObject(req.user),
       title: "Products",
+      tab: "Tables",
     });
   }
 
   // [GET] - Carousel
   carousel(req, res, next) {
-    return res.render("admin/products", {
+    Carousel.find().then((carousel) => {
+      return res.render("admin/carousel", {
+        layout: "adminLayout",
+        user: toObject(req.user),
+        title: "Carousel",
+        tab: "Customize",
+        carousel: toObject(carousel[0]),
+      });
+    });
+  }
+  // [POST] - /carousel/store
+  carouselStore(req, res, next) {
+    var newCarousel = new Carousel(req.body);
+    console.log(newCarousel);
+    Carousel.collection.drop(function (err, result) {
+      if (err) {
+        req.flash("error", "Save fail!");
+        return res.redirect("back");
+      } else {
+        newCarousel
+          .save()
+          .then(() => {
+            req.flash("success", "Save succesful!");
+            return res.redirect("back");
+          })
+          .catch((err) => {
+            req.flash("error", "Save fail!");
+            return res.redirect("back");
+          });
+      }
+    });
+  }
+
+  // [GET] - video
+  video(req, res, next) {
+    return res.render("admin/video", {
       layout: "adminLayout",
       user: toObject(req.user),
-      title: "Products",
+      title: "Video",
+      tab: "Customize",
+    });
+  }
+
+  // [GET] - gallery
+  gallery(req, res, next) {
+    return res.render("admin/gallery", {
+      layout: "adminLayout",
+      user: toObject(req.user),
+      title: "Gallery",
+      tab: "Customize",
+    });
+  }
+
+  // [GET] - location
+  location(req, res, next) {
+    return res.render("admin/location", {
+      layout: "adminLayout",
+      user: toObject(req.user),
+      title: "Location",
+      tab: "Customize",
     });
   }
 }
