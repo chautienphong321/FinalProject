@@ -27,6 +27,10 @@ router.post("/location/store", adminController.locationStore);
 // [GET] /location
 router.get("/location", adminController.location);
 
+// [GET] /product/delete?id=
+router.get("/product/delete/:id", adminController.productDelete);
+// [POST] /product/store
+router.post("/product/store", adminController.productStore);
 // [GET] /index
 router.get("/product", adminController.product);
 

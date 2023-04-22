@@ -57,9 +57,14 @@ module.exports = {
 
     return formatTime;
   },
-  // formatCurrency: function (value) {
-  //   if (value == 0) return value;
-  //   return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-  //   // return value
-  // },
+  formatCurrency: function (value) {
+    if (value == 0) return value;
+    const formattedValue = value.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 2,
+    });
+    return `${formattedValue.slice(0, -3)}.00`;
+    // return value
+  },
 };

@@ -4,6 +4,7 @@ const Carousel = require("../models/Carousel");
 const Video = require("../models/Video");
 const Gallery = require("../models/Gallery");
 const Location = require("../models/Location");
+const Product = require("../models/Product");
 class AdminController {
   // [GET] - Index
   index(req, res, next) {
@@ -16,12 +17,43 @@ class AdminController {
 
   // [GET] - Products
   product(req, res, next) {
-    return res.render("admin/products", {
-      layout: "adminLayout",
-      user: toObject(req.user),
-      title: "Products",
-      tab: "Tables",
+    Product.find().then((products) => {
+      return res.render("admin/product", {
+        layout: "adminLayout",
+        user: toObject(req.user),
+        title: "Product",
+        tab: "Tables",
+        products: mulToObject(products),
+      });
     });
+  }
+  // [POST] - /product/store
+  productStore(req, res, next) {
+    const newProduct = new Product(req.body);
+    console.log(newProduct);
+    newProduct
+      .save()
+      .then(() => {
+        req.flash("success", "Save succesful!");
+        return res.redirect("back");
+      })
+      .catch((err) => {
+        req.flash("error", "Save fail!");
+        return res.redirect("back");
+      });
+  }
+  // [GET] - /product/delete?id=
+  productDelete(req, res, next) {
+    const productId = req.params.id;
+    Product.deleteOne({ _id: productId })
+      .then(() => {
+        req.flash("successProduct", "Delete successful!");
+        return res.redirect("/admin/product#product-table");
+      })
+      .catch((err) => {
+        req.flash("errorProduct", "Delete fail!");
+        return res.redirect("/admin/product#product-table");
+      });
   }
 
   // [GET] - Carousel

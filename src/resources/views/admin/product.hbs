@@ -1,0 +1,250 @@
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Create {{title}}</h5>
+
+          <!-- General Form Elements -->
+          <form
+            class="needs-validation"
+            action="/admin/product/store"
+            method="POST"
+          >
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">Product name</label>
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  placeholder="Gucci shirt"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">Description</label>
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="description"
+                  placeholder="From vibrant shades to pastel hues, the Pre-Fall 2023 children's collection proposes classic emblems of the House atop new ready-to-wear pieces and accessories."
+                />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">Price</label>
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="input-price"
+                  onkeyup="formatCurrency(this)"
+                  required
+                />
+                <input type="hidden" name="price" />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">Quantity</label>
+              <div class="col-sm-10">
+                <input type="number" class="form-control" name="quantity" />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">Image</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="image"
+                    id="input-image-url-1"
+                    required
+                  />
+                  <button
+                    class="btn btn-primary"
+                    type="button"
+                    tabindex="-1"
+                    onclick="previewImage(this)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#imageModal"
+                  ><i class="bi bi-image-fill"></i></button>
+                  <button
+                    class="btn btn-dark"
+                    type="button"
+                    tabindex="-1"
+                    id="btn-paste-url-1"
+                    onclick="pasteTextToNearestInput(this)"
+                  ><i class="bi bi-clipboard"></i></button>
+                </div>
+              </div>
+            </div>
+
+            {{#if messages}}
+              <div class="row mb-3">
+                {{#if messages.error}}
+                  <div
+                    class="alert alert-danger alert-dismissible fade show"
+                    role="alert"
+                  >
+                    <i class="bi bi-check-circle me-1"></i>
+                    {{messages.error}}
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="alert"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                {{/if}}
+                {{#if messages.success}}
+                  <div
+                    class="alert alert-success alert-dismissible fade show"
+                    role="alert"
+                  >
+                    <i class="bi bi-exclamation-octagon me-1"></i>
+                    {{messages.success}}
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="alert"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                {{/if}}
+              </div>
+            {{/if}}
+            <div class="d-flex justify-content-center mb-3">
+              <button type="submit" class="btn btn-success">Save</button>
+            </div>
+
+          </form><!-- End General Form Elements -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{title}}</h5>
+          <p>The products table is a database table that stores
+            <code>information</code>
+            about products, such as their name, description, price, and
+            availability.</p>
+          {{#if messages}}
+            {{#if messages.errorProduct}}
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                role="alert"
+              >
+                <i class="bi bi-check-circle me-1"></i>
+                {{messages.errorProduct}}
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
+              </div>
+            {{/if}}
+            {{#if messages.successProduct}}
+              <div
+                class="alert alert-success alert-dismissible fade show"
+                role="alert"
+              >
+                <i class="bi bi-exclamation-octagon me-1"></i>
+                {{messages.successProduct}}
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
+              </div>
+            {{/if}}
+          {{/if}}
+          <!-- Table with stripped rows -->
+          <table class="table datatable" id="product-table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Image</th>
+                <th scope="col">Created at</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {{#each products}}
+                  <th scope="row">{{@index}}</th>
+                  <td>{{name}}</td>
+                  <td>{{description}}</td>
+                  <td>{{formatCurrency price}}</td>
+                  <td>{{quantity}}</td>
+                  <td><img
+                      src={{image}}
+                      class="img-fluid"
+                      style="max-width: 300px"
+                    /></td>
+                  <td>{{moment createdAt format="HH:mm DD-MM-yyyy"}}</td>
+                  <td><a href="/admin/product/delete/{{_id}}"><button
+                        class="btn btn-danger"
+                      ><i class="bi bi-trash"></i></button></a></td>
+                {{/each}}
+              </tr>
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="imageModal"
+  tabindex="-1"
+  aria-labelledby="imageModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <img id="imagePreview" class="img-fluid" src="" alt="Preview Image" />
+      </div>
+    </div>
+  </div>
+</div>
