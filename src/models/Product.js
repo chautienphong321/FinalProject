@@ -18,6 +18,11 @@ const Product = new Schema(
       required: true,
       min: 0,
     },
+    type: {
+      type: Schema.Types.ObjectId,
+      ref: "Type",
+      required: true,
+    },
     image: {
       type: String,
       required: true,

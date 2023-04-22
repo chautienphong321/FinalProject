@@ -5,6 +5,7 @@ const Video = require("../models/Video");
 const Gallery = require("../models/Gallery");
 const Location = require("../models/Location");
 const Product = require("../models/Product");
+const Type = require("../models/Type");
 class AdminController {
   // [GET] - Index
   index(req, res, next) {
@@ -15,22 +16,52 @@ class AdminController {
     });
   }
 
-  // [GET] - Products
-  product(req, res, next) {
-    Product.find().then((products) => {
-      return res.render("admin/product", {
+  // [GET] - /type
+  type(req, res, next) {
+    Type.find().then((types) => {
+      return res.render("admin/type", {
         layout: "adminLayout",
         user: toObject(req.user),
-        title: "Product",
+        title: "Types",
         tab: "Tables",
-        products: mulToObject(products),
+        types: mulToObject(types),
       });
     });
+  }
+  // [POST] - /type/store
+  typeStore(req, res, next) {
+    const newType = new Type(req.body);
+    console.log(newType);
+    newType
+      .save()
+      .then(() => {
+        req.flash("success", "Save succesful!");
+        return res.redirect("back");
+      })
+      .catch((err) => {
+        req.flash("error", "Save fail!");
+        return res.redirect("back");
+      });
+  }
+
+  // [GET] - Products
+  product(req, res, next) {
+    Promise.all([Product.find().populate("type"), Type.find()]).then(
+      ([products, types]) => {
+        return res.render("admin/product", {
+          layout: "adminLayout",
+          user: toObject(req.user),
+          title: "Product",
+          tab: "Tables",
+          products: mulToObject(products),
+          types: mulToObject(types),
+        });
+      }
+    );
   }
   // [POST] - /product/store
   productStore(req, res, next) {
     const newProduct = new Product(req.body);
-    console.log(newProduct);
     newProduct
       .save()
       .then(() => {
@@ -236,7 +267,6 @@ class AdminController {
   // [GET] - /location/delete?id=
   locationDelete(req, res, next) {
     const locationId = req.params.id;
-    console.log(locationId);
     Location.deleteOne({ _id: locationId })
       .then(() => {
         req.flash("successLocation", "Delete successful!");

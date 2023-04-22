@@ -9,12 +9,12 @@
           <!-- General Form Elements -->
           <form
             class="needs-validation"
-            action="/admin/product/store"
+            action="/admin/type/store"
             method="POST"
           >
 
             <div class="row mb-3">
-              <label class="col-sm-2 col-form-label">Product name</label>
+              <label class="col-sm-2 col-form-label">Type name</label>
               <div class="col-sm-10">
                 <input
                   type="text"
@@ -23,86 +23,6 @@
                   placeholder="Gucci shirt"
                   required
                 />
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label">Description</label>
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="description"
-                  placeholder="From vibrant shades to pastel hues, the Pre-Fall 2023 children's collection proposes classic emblems of the House atop new ready-to-wear pieces and accessories."
-                />
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label">Type</label>
-              <div class="col-sm-10">
-                <select
-                  class="form-select"
-                  aria-label="Select District"
-                  name="type"
-                  required
-                >
-                  <option disabled>Choose type</option>
-                  {{#each types}}
-                    <option selected value="{{_id}}">{{name}}</option>
-                  {{/each}}
-                </select>
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label">Price</label>
-              <div class="col-sm-10">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="input-price"
-                  onkeyup="formatCurrency(this)"
-                  required
-                />
-                <input type="hidden" name="price" />
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label">Quantity</label>
-              <div class="col-sm-10">
-                <input type="number" class="form-control" name="quantity" />
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label">Image</label>
-              <div class="col-sm-10">
-                <div class="input-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="image"
-                    id="input-image-url-1"
-                    required
-                  />
-                  <button
-                    class="btn btn-primary"
-                    type="button"
-                    tabindex="-1"
-                    onclick="previewImage(this)"
-                    data-bs-toggle="modal"
-                    data-bs-target="#imageModal"
-                  ><i class="bi bi-image-fill"></i></button>
-                  <button
-                    class="btn btn-dark"
-                    type="button"
-                    tabindex="-1"
-                    id="btn-paste-url-1"
-                    onclick="pasteTextToNearestInput(this)"
-                  ><i class="bi bi-clipboard"></i></button>
-                </div>
               </div>
             </div>
 
@@ -160,18 +80,17 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{title}}</h5>
-          <p>The products table is a database table that stores
+          <p>The types table is a database table that stores
             <code>information</code>
-            about products, such as their name, description, price, and
-            availability.</p>
+            about product type name.</p>
           {{#if messages}}
-            {{#if messages.errorProduct}}
+            {{#if messages.errorType}}
               <div
                 class="alert alert-danger alert-dismissible fade show"
                 role="alert"
               >
                 <i class="bi bi-check-circle me-1"></i>
-                {{messages.errorProduct}}
+                {{messages.errorType}}
                 <button
                   type="button"
                   class="btn-close"
@@ -180,13 +99,13 @@
                 ></button>
               </div>
             {{/if}}
-            {{#if messages.successProduct}}
+            {{#if messages.successType}}
               <div
                 class="alert alert-success alert-dismissible fade show"
                 role="alert"
               >
                 <i class="bi bi-exclamation-octagon me-1"></i>
-                {{messages.successProduct}}
+                {{messages.successType}}
                 <button
                   type="button"
                   class="btn-close"
@@ -202,33 +121,15 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
-                <th scope="col">Description</th>
-                <th scope="col">Type</th>
-                <th scope="col">Price</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Image</th>
                 <th scope="col">Created at</th>
-                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                {{#each products}}
+                {{#each types}}
                   <th scope="row">{{@index}}</th>
                   <td>{{name}}</td>
-                  <td>{{description}}</td>
-                  <td>{{type.name}}</td>
-                  <td>{{formatCurrency price}}</td>
-                  <td>{{quantity}}</td>
-                  <td><img
-                      src={{image}}
-                      class="img-fluid"
-                      style="max-width: 300px"
-                    /></td>
                   <td>{{moment createdAt format="HH:mm DD-MM-yyyy"}}</td>
-                  <td><a href="/admin/product/delete/{{_id}}"><button
-                        class="btn btn-danger"
-                      ><i class="bi bi-trash"></i></button></a></td>
                 {{/each}}
               </tr>
             </tbody>

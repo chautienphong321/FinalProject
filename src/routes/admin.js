@@ -31,8 +31,13 @@ router.get("/location", adminController.location);
 router.get("/product/delete/:id", adminController.productDelete);
 // [POST] /product/store
 router.post("/product/store", adminController.productStore);
-// [GET] /index
+// [GET] /product
 router.get("/product", adminController.product);
+
+// [POST] /type
+router.post("/type/store", adminController.typeStore);
+// [GET] /type
+router.get("/type", adminController.type);
 
 // [GET] /index
 router.get("/", adminController.index);
