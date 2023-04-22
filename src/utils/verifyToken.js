@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/User");
+const Role = require("../models/Role");
 
 function verifyToken(req, res, next) {
   var token;
@@ -13,9 +14,12 @@ function verifyToken(req, res, next) {
       User.findOne({ _id: decoded._id })
         .then((user) => {
           if (user) {
-            if (user.role == "Admin") {
-              req.isAdmin = true;
-            }
+            Role.findOne({ _id: user.role }).then((role) => {
+              if (role.name == "Admin") {
+                req.isAdmin = true;
+                console.log("is admin");
+              }
+            });
             req.user = user;
           }
           next(); // always call next() here to ensure middleware chain continues
@@ -36,28 +40,17 @@ function verifyToken(req, res, next) {
 }
 
 function verifyAdmin(req, res, next) {
-  console.log(req.user);
   if (req.user && req.user.role) {
-    console.log("Verifying admin 1");
-
-    if (req.user.role != "Admin") {
-      console.log("Verifying admin 2");
-
+    if (req.isAdmin === false) {
       User.findOne({ _id: req.user._id }).then((user) => {
-        console.log("Verifying admin 3");
-
         req.flash("error", "This page is for the admin.");
         req.flash("status", 409);
         return res.redirect("/notfound");
       });
     } else {
-      // call next() here only if user is an admin
-      console.log("User is an admin");
       next();
     }
   } else {
-    console.log("Verifying admin fail");
-
     req.flash("error", "You need to login first.");
     return res.redirect("/login");
   }

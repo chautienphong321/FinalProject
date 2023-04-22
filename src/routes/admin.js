@@ -5,6 +5,8 @@ router.use(cookieParser());
 
 const adminController = require("../controllers/AdminController");
 
+// [GET} /index
+router.get("/product", adminController.product);
 
 // [GET} /index
 router.get("/", adminController.index);

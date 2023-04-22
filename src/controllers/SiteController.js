@@ -172,7 +172,7 @@ class SiteController {
           bcrypt.hash(temp, 10, function (err, hash) {
             const user = new User({
               name: req.body.email.split("@")[0].trim(),
-              role: "Customer",
+              role: "6442d2cc4ba91217916c3597", // ID of Customer Role
               password: hash,
               email: req.body.email,
               avatar: "sample-avatar.jpg",

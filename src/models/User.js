@@ -6,25 +6,41 @@ const slug = require("mongoose-slug-generator");
 
 const Schema = mongoose.Schema;
 
-const User = new Schema(
+const User = new mongoose.Schema(
   {
+    role: {
+      type: Schema.Types.ObjectId,
+      ref: "Role",
+      required: true,
+    },
     name: { type: String, minLength: 1, maxLength: 255 },
-    email: { type: String, minLength: 1, maxLength: 255 },
-    password: { type: String },
-    money: { type: Number, default: 0 },
-    birthday: { type: Date, default: 0 },
-    role: { type: String, default: "Customer" },
-    address: { type: String, minLength: 1, maxLength: 255 },
-    gender: { type: String, default: "male" },
+    email: { type: String, minLength: 1, maxLength: 255, required: true },
+    password: { type: String, required: true },
     avatar: { type: String, maxLength: 255, default: "sample-avatar.jpg" },
 
-    googleId: { type: String },
-    facebookId: { type: String },
+    notifications: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Notification",
+      },
+    ],
+
+    cart: {
+      type: Schema.Types.ObjectId,
+      ref: "Cart",
+    },
+
+    orders: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Order",
+      },
+    ],
+
+    googleID: { type: String },
 
     countFailed: { type: Number, default: 0 },
     deletedAt: {},
-    // createdAt: {type: Date, default : Date.Now},
-    // updateAt: {type: Date, default : Date.Now}
   },
   {
     timestamps: true,
