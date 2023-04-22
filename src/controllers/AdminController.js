@@ -2,6 +2,7 @@ const { mulToObject, toObject } = require("../utils/jsonToObject");
 const Role = require("../models/Role");
 const Carousel = require("../models/Carousel");
 const Video = require("../models/Video");
+const Gallery = require("../models/Gallery");
 class AdminController {
   // [GET] - Index
   index(req, res, next) {
@@ -92,11 +93,35 @@ class AdminController {
 
   // [GET] - gallery
   gallery(req, res, next) {
-    return res.render("admin/gallery", {
-      layout: "adminLayout",
-      user: toObject(req.user),
-      title: "Gallery",
-      tab: "Customize",
+    Gallery.find().then((gallery) => {
+      return res.render("admin/gallery", {
+        layout: "adminLayout",
+        user: toObject(req.user),
+        title: "Gallery",
+        tab: "Customize",
+        gallery: toObject(gallery[0]),
+      });
+    });
+  }
+  // [POST] - /gallery/store
+  galleryStore(req, res, next) {
+    var newGallery = new Gallery(req.body);
+    Gallery.collection.drop(function (err, result) {
+      if (err) {
+        req.flash("error", "Save fail!");
+        return res.redirect("back");
+      } else {
+        newGallery
+          .save()
+          .then(() => {
+            req.flash("success", "Save succesful!");
+            return res.redirect("back");
+          })
+          .catch((err) => {
+            req.flash("error", "Save fail!");
+            return res.redirect("back");
+          });
+      }
     });
   }
 

@@ -17,6 +17,9 @@ router.post("/video/store", adminController.videoStore);
 // [GET] /video
 router.get("/video", adminController.video);
 
+// [POST] /gallery/store
+router.post("/gallery/store", adminController.galleryStore);
+
 // [GET] /gallery
 router.get("/gallery", adminController.gallery);
 
