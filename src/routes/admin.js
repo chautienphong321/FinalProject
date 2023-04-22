@@ -11,6 +11,9 @@ router.post("/carousel/store", adminController.carouselStore);
 // [GET] /carousel
 router.get("/carousel", adminController.carousel);
 
+// [POST] /video/store
+router.post("/video/store", adminController.videoStore);
+
 // [GET] /video
 router.get("/video", adminController.video);
 

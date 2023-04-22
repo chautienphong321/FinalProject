@@ -4,13 +4,13 @@
 
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Choose the way to upload image for
+          <h5 class="card-title">Choose the way to upload for
             {{title}}</h5>
 
           <!-- General Form Elements -->
           <form
             class="needs-validation"
-            action="/admin/carousel/store"
+            action="/admin/video/store"
             method="POST"
           >
 
@@ -21,10 +21,10 @@
                     class="form-check-input"
                     type="radio"
                     name="gridRadios"
-                    id="carousel-url"
+                    id="video-url"
                     checked
                   />
-                  <label class="form-check-label" for="carousel-url">
+                  <label class="form-check-label" for="video-url">
                     URL
                   </label>
                 </div>
@@ -33,10 +33,10 @@
                     class="form-check-input"
                     type="radio"
                     name="gridRadios"
-                    id="carousel-file"
+                    id="video-file"
                     disabled
                   />
-                  <label class="form-check-label" for="carousel-file">
+                  <label class="form-check-label" for="video-file">
                     File upload
                   </label>
                 </div>
@@ -44,14 +44,15 @@
             </fieldset>
 
             <div class="row mb-3">
-              <label class="col-sm-2 col-form-label">Image URL One</label>
+              <label class="col-sm-2 col-form-label">Video preview</label>
               <div class="col-sm-10">
                 <div class="input-group">
                   <input
                     type="text"
                     class="form-control"
-                    name="imageOne"
+                    name="imageVideo"
                     id="input-image-url-1"
+                    placeholder="Your video preview image link"
                     required
                   />
                   <button
@@ -74,59 +75,22 @@
             </div>
 
             <div class="row mb-3">
-              <label class="col-sm-2 col-form-label">Image URL Two</label>
+              <label class="col-sm-2 col-form-label">Video URL</label>
               <div class="col-sm-10">
                 <div class="input-group">
                   <input
                     type="text"
                     class="form-control"
-                    name="imageTwo"
+                    name="videoLink"
                     id="input-image-url-2"
+                    placeholder="Your video link"
                     required
                   />
-                  <button
-                    class="btn btn-primary"
-                    type="button"
-                    tabindex="-1"
-                    onclick="previewImage(this)"
-                    data-bs-toggle="modal"
-                    data-bs-target="#imageModal"
-                  ><i class="bi bi-image-fill"></i></button>
                   <button
                     class="btn btn-dark"
                     type="button"
                     tabindex="-1"
                     id="btn-paste-url-2"
-                    onclick="pasteTextToNearestInput(this)"
-                  ><i class="bi bi-clipboard"></i></button>
-                </div>
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label">Image URL Three</label>
-              <div class="col-sm-10">
-                <div class="input-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="imageThree"
-                    id="input-image-url-3"
-                    required
-                  />
-                  <button
-                    class="btn btn-primary"
-                    type="button"
-                    tabindex="-1"
-                    onclick="previewImage(this)"
-                    data-bs-toggle="modal"
-                    data-bs-target="#imageModal"
-                  ><i class="bi bi-image-fill"></i></button>
-                  <button
-                    class="btn btn-dark"
-                    type="button"
-                    tabindex="-1"
-                    id="btn-paste-url-3"
                     onclick="pasteTextToNearestInput(this)"
                   ><i class="bi bi-clipboard"></i></button>
                 </div>
@@ -200,49 +164,48 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{title}}</h5>
-          <p>The carousel table is a database table that stores information
-            about
-            <code>carousels</code>, such as their name, images, and links. It is
-            commonly used to display rotating banners or images on a website's
-            homepage or other pages.</p>
+          <p>The video table is a database table that stores information about
+            <code>videos</code>, such as image preview, and link. It is commonly
+            used to display rotating banners or images on a website's homepage
+            or other pages.</p>
 
           <!-- Table with stripped rows -->
           <table class="table datatable">
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Image Url</th>
+                <th scope="col">Video Url</th>
                 <th scope="col">Image Preview</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <th scope="row">1</th>
-                <td>{{carousel.imageOne}}</td>
+                <td>{{video.imageOne}}</td>
                 <td><img
                     class="img-fluid"
                     style="max-width: 300px"
-                    src="{{carousel.imageOne}}"
+                    src="{{video.imageOne}}"
                     alt="imageOne"
                   /></td>
               </tr>
               <tr>
                 <th scope="row">2</th>
-                <td>{{carousel.imageTwo}}</td>
+                <td>{{video.imageTwo}}</td>
                 <td><img
                     class="img-fluid"
                     style="max-width: 300px"
-                    src="{{carousel.imageTwo}}"
+                    src="{{video.imageTwo}}"
                     alt="imageTwo"
                   /></td>
               </tr>
               <tr>
                 <th scope="row">3</th>
-                <td>{{carousel.imageThree}}</td>
+                <td>{{video.imageThree}}</td>
                 <td><img
                     class="img-fluid"
                     style="max-width: 300px"
-                    src="{{carousel.imageThree}}"
+                    src="{{video.imageThree}}"
                     alt="imageThree"
                   /></td>
               </tr>

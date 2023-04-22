@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Carousel = require("../models/Carousel");
+const Video = require("../models/Video");
 const { mulToObject, toObject } = require("../utils/jsonToObject");
 
 const bcrypt = require("bcrypt");
@@ -8,12 +9,13 @@ const jwt = require("jsonwebtoken");
 class SiteController {
   // [GET] - Index
   index(req, res, next) {
-    Carousel.find().then((carousel) => {
+    Promise.all([Carousel.find(), Video.find()]).then(([carousel, video]) => {
       return res.render("home", {
         isHomePage: true,
         user: toObject(req.user),
         isAdmin: req.isAdmin,
         carousel: toObject(carousel[0]),
+        video: toObject(video[0]),
       });
     });
   }

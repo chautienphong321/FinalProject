@@ -118,10 +118,10 @@
 
         <div
           class="col-lg-5 align-items-stretch video-box"
-          style='background-image: url("/assets/img/about.jpg");'
+          style='background-image: url("{{#if video}}{{video.imageVideo}}{{else}}/assets/img/about.jpg{{/if}}");'
         >
           <a
-            href="https://www.youtube.com/watch?v=jwpspO5b6tw"
+            href="{{#if video}}{{video.videoLink}}{{else}}https://www.youtube.com/watch?v=jwpspO5b6tw{{/if}}"
             class="venobox play-btn mb-4"
             data-vbtype="video"
             data-autoplay="true"
