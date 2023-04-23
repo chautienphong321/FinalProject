@@ -12,6 +12,7 @@ function verifyToken(req, res, next) {
     try {
       const decoded = jwt.verify(token, "secretpasstoken");
       User.findOne({ _id: decoded._id })
+        .populate("cart")
         .then((user) => {
           if (user) {
             Role.findOne({ _id: user.role }).then((role) => {

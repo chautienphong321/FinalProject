@@ -25,21 +25,25 @@ passport.use(
         if (user) {
           return done(null, profile);
         } else {
-          var newUser = new User({
-            email: profile.email,
-            name: profile.displayName,
-            googleID: profile.id,
-            avatar: profile.photos[0].value,
-            role: "6442d2cc4ba91217916c3597",
-          });
-          newUser
-            .save()
-            .then(() => {
-              return done(null, newUser);
-            })
-            .catch((err) => {
-              console.log(err);
+          const cart = new Cart();
+          cart.save().then((cart) => {
+            var newUser = new User({
+              email: profile.email,
+              name: profile.displayName,
+              googleID: profile.id,
+              avatar: profile.photos[0].value,
+              role: "6442d2cc4ba91217916c3597",
+              cart: cart._id,
             });
+            newUser
+              .save()
+              .then(() => {
+                return done(null, newUser);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          });
         }
       });
     }
@@ -51,7 +55,6 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (user, done) {
   done(null, user);
 });
-
 // [GET] /auth/google
 router.get(
   "/auth/google",
@@ -68,8 +71,30 @@ router.get(
   }
 );
 
+// [GET] /add-to-cart/:id
+router.get("/add-to-cart/:productID", verifyToken, siteController.addToCart);
+// [GET] /remove-from-cart/:id
+router.get(
+  "/remove-from-cart/:productID",
+  verifyToken,
+  siteController.removeFromCart
+);
+
+// [POST] /checkout-by-paypal
+router.get("/checkout-by-paypal", verifyToken, siteController.checkoutByPaypal);
+// [GET] /checkout-by-paypal-success
+router.get(
+  "/checkout-by-paypal-success",
+  siteController.checkoutByPaypalSuccess
+);
+// [GET] /checkout-by-paypal-error
+router.get("/checkout-by-paypal-error", siteController.checkoutByPaypalError);
+
+// [GET] /cart
+router.get("/cart", verifyToken, siteController.cart);
+
 // [GET] /shop
-router.get("/shop", siteController.shop);
+router.get("/shop", verifyToken, siteController.shop);
 
 // [POST] /store
 router.post("/store", siteController.store);
@@ -87,7 +112,7 @@ router.get("/register", siteController.register);
 router.get("/logout", siteController.logout);
 
 // [POST] /customize
-router.post("/customize/store", siteController.customizeStore);
+router.post("/customize/store", verifyToken, siteController.customizeStore);
 // [GET] /customize
 router.get("/customize", verifyToken, siteController.customize);
 

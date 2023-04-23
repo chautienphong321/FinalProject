@@ -44,6 +44,7 @@
           </li>
           <li><a class="nav-link scrollto" href="/#info">Info</a></li>
           <li><a class="nav-link scrollto {{#ifeq title 'Customize'}}active{{/ifeq}}" href="/customize">Customize</a></li>
+          {{#if user}}<li><a class="nav-link scrollto" href="/cart"><i class="bi bi-cart3" style='font-size:20px;'></i></a></li>{{/if}}
           {{#if isAdmin}}<li><a href="/admin" class="nav-link management-btn">Management</a></li>{{/if}}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>

@@ -6,10 +6,15 @@ const Location = require("../models/Location");
 const Type = require("../models/Type");
 const Product = require("../models/Product");
 const Customize = require("../models/Customize");
+const Cart = require("../models/Cart");
+const Order = require("../models/Order");
 const { mulToObject, toObject } = require("../utils/jsonToObject");
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const paypal = require("paypal-rest-sdk");
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../secrets/.env") });
 
 class SiteController {
   // [GET] - Index
@@ -58,6 +63,78 @@ class SiteController {
       }
     );
   }
+
+  // [GET] /cart
+  cart(req, res, next) {
+    Promise.all([
+      Product.find().populate("type"),
+      Type.find(),
+      Cart.findById(req.user.cart).populate("products.product"),
+    ]).then(([products, types, cart]) => {
+      var totalCart;
+      var totalQuantity;
+      if (!cart || !cart.products || cart.products.length == 0) {
+        totalCart = 0;
+        totalQuantity = 0;
+      } else {
+        totalCart = cart.products.reduce((total, item) => {
+          const productTotal = item.product.price * item.quantity;
+          return total + productTotal;
+        }, 0);
+        totalQuantity = cart.products.reduce((total, item) => {
+          return total + item.quantity;
+        }, 0);
+      }
+      res.render("cart", {
+        user: toObject(req.user),
+        isAdmin: req.isAdmin,
+        title: "Shopping Cart",
+        products: mulToObject(products),
+        types: mulToObject(types),
+        cart: toObject(cart),
+        totalCart: totalCart,
+        totalQuantity: totalQuantity,
+      });
+    });
+  }
+
+  // [GET] /shop/add-to-cart/:id
+  addToCart(req, res, next) {
+    try {
+      const quantity = 1;
+      const productId = req.params.productID;
+      const product = Product.findById(productId);
+      if (!product) {
+        req.flash("error", "Product not found");
+        return res.redirect("back");
+      }
+
+      Cart.findOne({ _id: req.user.cart }).then((cart) => {
+        const existingProductIndex = cart.products
+          ? cart.products.findIndex(
+              (p) => p.product && p.product.toString() === productId.toString()
+            )
+          : -1;
+        if (existingProductIndex !== -1) {
+          cart.products[existingProductIndex].quantity += quantity;
+        } else {
+          cart.products.push({ product: productId, quantity });
+        }
+        cart.total += product.price * quantity;
+        cart.save().then(() => {
+          req.flash("success", "Add to cart successfully");
+          res.redirect("back");
+        });
+      });
+    } catch (error) {
+      req.flash("error", error.message);
+      req.flash("status", error.status);
+      return res.redirect("/notfound");
+    }
+  }
+
+  // [GET] /remove-from-cart/:productID
+  removeFromCart(req, res, next) {}
 
   // [GET] - Error
   error(req, res, next) {
@@ -229,31 +306,38 @@ class SiteController {
         } else {
           var temp = req.body.password;
           bcrypt.hash(temp, 10, function (err, hash) {
-            const user = new User({
-              name: req.body.email.split("@")[0].trim(),
-              role: "6442d2cc4ba91217916c3597", // ID of Customer Role
-              password: hash,
-              email: req.body.email,
-              avatar: "sample-avatar.jpg",
-            });
-            user
-              .save()
-              .then(() => {
-                req.flash(
-                  "success",
-                  "Registration successful! You can now login."
-                );
-                req.flash("email", req.body.email);
-                return res.redirect("/login");
-              })
-              .catch((err) => {
-                req.flash("error", "Fail to register");
-                return res.redirect("/register");
+            const cart = new Cart();
+            cart.save().then((cart) => {
+              const user = new User({
+                name: req.body.email.split("@")[0].trim(),
+                role: "6442d2cc4ba91217916c3597", // ID of Customer Role
+                password: hash,
+                email: req.body.email,
+                avatar: "sample-avatar.jpg",
+                cart: cart._id,
               });
+              user
+                .save()
+                .then(() => {
+                  req.flash(
+                    "success",
+                    "Registration successful! You can now login."
+                  );
+                  req.flash("email", req.body.email);
+                  return res.redirect("/login");
+                })
+                .catch((err) => {
+                  req.flash("error", "Fail to register");
+                  return res.redirect("/register");
+                });
+            });
           });
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        req.flash("error", "Fail to register");
+        return res.redirect("back");
+      });
   }
 
   // [GET] - logout
@@ -261,6 +345,138 @@ class SiteController {
     res.clearCookie("token");
     //req.logout();
     return res.redirect("/");
+  }
+
+  //[POST] /checkout-by-wallet
+  checkoutByPaypal(req, res, next) {
+    const PAYPAL_CILENT_ID = process.env.PAYPAL_CILENT_ID;
+    const PAYPAL_CILENT_SECRET = process.env.PAYPAL_CILENT_SECRET;
+    paypal.configure({
+      mode: "sandbox",
+      client_id: PAYPAL_CILENT_ID,
+      client_secret: PAYPAL_CILENT_SECRET,
+    });
+
+    var totalOrder = 21000;
+
+    var order = new Order({
+      user: req.user._id,
+      products: req.user.cart.products,
+      total: totalOrder,
+    });
+
+    var orderParams = encodeURIComponent(JSON.stringify(order));
+
+    var create_payment_json = {
+      intent: "sale",
+      payer: {
+        payment_method: "paypal",
+      },
+      redirect_urls: {
+        return_url:
+          "http://localhost:1234/checkout-by-paypal-success?totalOrder=" +
+          totalOrder +
+          "&userId=" +
+          req.user._id +
+          "&order=" +
+          orderParams +
+          "&cartId=" +
+          req.user.cart._id +
+          "",
+        cancel_url: "http://localhost:1234/checkout-error",
+      },
+      transactions: [
+        {
+          item_list: {
+            items: [
+              {
+                name: "item",
+                sku: "item",
+                price: "2.0",
+                currency: "USD",
+                quantity: 1,
+              },
+            ],
+          },
+          amount: {
+            currency: "USD",
+            total: "2.0",
+          },
+          description: "Payment for Pontoon.",
+        },
+      ],
+    };
+
+    paypal.payment.create(create_payment_json, function (error, payment) {
+      if (error) {
+        throw error;
+      } else {
+        for (let i = 0; i < payment.links.length; i++) {
+          if (payment.links[i].rel === "approval_url") {
+            res.redirect(payment.links[i].href);
+          }
+        }
+      }
+    });
+  }
+
+  //[POST] /check-out-by-paypal-success
+  checkoutByPaypalSuccess(req, res) {
+    const PAYPAL_CILENT_ID = process.env.PAYPAL_CILENT_ID;
+    const PAYPAL_CILENT_SECRET = process.env.PAYPAL_CILENT_SECRET;
+    paypal.configure({
+      mode: "sandbox",
+      client_id: PAYPAL_CILENT_ID,
+      client_secret: PAYPAL_CILENT_SECRET,
+    });
+
+    const payerId = req.query.PayerID;
+    const paymentId = req.query.paymentId;
+
+    const execute_payment_json = {
+      payer_id: payerId,
+      transactions: [
+        {
+          amount: {
+            currency: "USD",
+            total: "2.00",
+          },
+        },
+      ],
+    };
+    paypal.payment.execute(
+      paymentId,
+      execute_payment_json,
+      function (err, payment) {
+        if (err) {
+          console.log("Paypal err: " + err);
+        } else {
+          var queryOrder = req.query.order;
+          queryOrder = JSON.parse(queryOrder);
+          var order = new Order(queryOrder);
+          order.save();
+
+          Cart.findOne({ _id: req.query.cartId })
+            .then((cart) => {
+              cart.products = [];
+              cart.save().then(() => {
+                req.flash("success", "Checkout successfully");
+                return res.redirect("/cart");
+              });
+            })
+            .catch((err) => {
+              req.flash("error", "Checkout fail");
+              return res.redirect("/cart");
+            });
+        }
+      }
+    );
+  }
+
+  //[POST] /checkout-error
+  checkoutByPaypalError(req, res) {
+    req.flash("failedMsg", "Your payment has been paused or canceled");
+    return res.redirect("/cart");
   }
 }
 

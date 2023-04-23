@@ -6,6 +6,7 @@ const Gallery = require("../models/Gallery");
 const Location = require("../models/Location");
 const Product = require("../models/Product");
 const Type = require("../models/Type");
+const Order = require("../models/Order");
 class AdminController {
   // [GET] - Index
   index(req, res, next) {
@@ -14,6 +15,23 @@ class AdminController {
       user: toObject(req.user),
       title: "Dashboard",
     });
+  }
+
+  // [GET] - /order
+  order(req, res, next) {
+    Order.find()
+      .populate("user")
+      .populate("products.product")
+      .then((orders) => {
+        console.log(orders[0].products);
+        return res.render("admin/order", {
+          layout: "adminLayout",
+          user: toObject(req.user),
+          title: "Orders",
+          tab: "Tables",
+          orders: mulToObject(orders),
+        });
+      });
   }
 
   // [GET] - /type

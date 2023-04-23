@@ -14,11 +14,11 @@
                 <h2 class="text-center mb-5 fs-2">Sign In</h2>
                 <form action="/validate" method="POST">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" {{#if messages.email}}value="{{messages.email}}"{{/if}}>
+                    <input type="text" class="form-control" id="floatingInput" name="email" value="{{#if messages.email}}{{messages.email}}{{else}}admin@gmail.com{{/if}}">
                     <label for="floatingInput">Email address</label>
                   </div>
                   <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" autocomplete="" name="password">
+                    <input type="password" class="form-control" id="floatingPassword" autocomplete="" name="password" value="admin">
                     <label for="floatingPassword">Password</label>
                   </div>
     

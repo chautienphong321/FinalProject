@@ -39,6 +39,9 @@ router.post("/type/store", adminController.typeStore);
 // [GET] /type
 router.get("/type", adminController.type);
 
+// [GET] /order
+router.get("/order", adminController.order);
+
 // [GET] /chart
 router.get("/chart/product", adminController.chartProduct);
 

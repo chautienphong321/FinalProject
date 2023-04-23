@@ -1,0 +1,104 @@
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{title}}</h5>
+          <p>The orders table is a database table that stores
+            <code>information</code>
+            about product type name.</p>
+          {{#if messages}}
+            {{#if messages.errorType}}
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                role="alert"
+              >
+                <i class="bi bi-check-circle me-1"></i>
+                {{messages.errorType}}
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
+              </div>
+            {{/if}}
+            {{#if messages.successType}}
+              <div
+                class="alert alert-success alert-dismissible fade show"
+                role="alert"
+              >
+                <i class="bi bi-exclamation-octagon me-1"></i>
+                {{messages.successType}}
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
+              </div>
+            {{/if}}
+          {{/if}}
+          <!-- Table with stripped rows -->
+          <table class="table datatable" id="product-table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Total</th>
+                <th scope="col">Products</th>
+                <th scope="col">Status</th>
+                <th scope="col">Created at</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each orders}}
+                <tr>
+                  {{! <span class="badge rounded-pill bg-primary">Primary</span>
+              <span class="badge rounded-pill bg-success">Success</span>
+              <span class="badge rounded-pill bg-danger">Danger</span> }}
+                  <th scope="row">{{@index}}</th>
+                  <td>{{user.name}}</td>
+                  <td>{{formatCurrency total}}</td>
+                  <td>{{#products}}{{product.name}}, {{/products}}</td>
+                  <td><span class="badge rounded-pill bg-{{#ifeq status "Pending"}}primary{{/ifeq}}{{#ifeq status "Confirmed"}}info{{/ifeq}}{{#ifeq status "Paid"}}success{{/ifeq}}">{{status}}</span></td>
+                  <td>{{moment createdAt format="HH:mm DD-MM-yyyy"}}</td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="imageModal"
+  tabindex="-1"
+  aria-labelledby="imageModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <img id="imagePreview" class="img-fluid" src="" alt="Preview Image" />
+      </div>
+    </div>
+  </div>
+</div>
