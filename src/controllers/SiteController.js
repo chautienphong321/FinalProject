@@ -5,6 +5,7 @@ const Gallery = require("../models/Gallery");
 const Location = require("../models/Location");
 const Type = require("../models/Type");
 const Product = require("../models/Product");
+const Customize = require("../models/Customize");
 const { mulToObject, toObject } = require("../utils/jsonToObject");
 
 const bcrypt = require("bcrypt");
@@ -82,6 +83,20 @@ class SiteController {
     return res.render("register", { title: "Register" });
   }
 
+  // [POST] - /customize/store
+  customizeStore(req, res, next) {
+    var newCustom = new Customize(req.body);
+    newCustom
+      .save()
+      .then(() => {
+        req.flash("success", "Save Success!");
+        return res.redirect("back");
+      })
+      .catch((err) => {
+        req.flash("error", "Save fail!");
+        return res.redirect("back");
+      });
+  }
   // [GET] - customize
   customize(req, res, next) {
     return res.render("customize", {

@@ -277,6 +277,22 @@ class AdminController {
         return res.redirect("/admin/location#location-table");
       });
   }
+
+  // [GET] - /chart
+  chartProduct(req, res, next) {
+    Promise.all([Product.find().populate("type"), Type.find()]).then(
+      ([products, types]) => {
+        return res.render("admin/chart", {
+          layout: "adminLayout",
+          user: toObject(req.user),
+          title: "Products",
+          tab: "Charts",
+          products: mulToObject(products),
+          types: mulToObject(types),
+        });
+      }
+    );
+  }
 }
 
 module.exports = new AdminController();

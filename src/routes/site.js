@@ -86,6 +86,8 @@ router.get("/register", siteController.register);
 // [GET] /logout
 router.get("/logout", siteController.logout);
 
+// [POST] /customize
+router.post("/customize/store", siteController.customizeStore);
 // [GET] /customize
 router.get("/customize", verifyToken, siteController.customize);
 
