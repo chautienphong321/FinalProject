@@ -14,8 +14,8 @@ const User = new mongoose.Schema(
       required: true,
     },
     name: { type: String, minLength: 1, maxLength: 255 },
-    email: { type: String, minLength: 1, maxLength: 255, required: true },
-    password: { type: String, required: true },
+    email: { type: String, minLength: 1, maxLength: 255 },
+    password: { type: String },
     avatar: { type: String, maxLength: 255, default: "sample-avatar.jpg" },
 
     notifications: [

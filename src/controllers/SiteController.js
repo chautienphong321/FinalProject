@@ -244,6 +244,7 @@ class SiteController {
   // [GET] - logout
   logout(req, res, next) {
     res.clearCookie("token");
+    //req.logout();
     return res.redirect("/");
   }
 }
