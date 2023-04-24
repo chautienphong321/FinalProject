@@ -212,8 +212,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                {{#each products}}
+              {{#each products}}
+                <tr>
                   <th scope="row">{{@index}}</th>
                   <td>{{name}}</td>
                   <td>{{description}}</td>
@@ -229,8 +229,8 @@
                   <td><a href="/admin/product/delete/{{_id}}"><button
                         class="btn btn-danger"
                       ><i class="bi bi-trash"></i></button></a></td>
-                {{/each}}
-              </tr>
+                </tr>
+              {{/each}}
             </tbody>
           </table>
           <!-- End Table with stripped rows -->
